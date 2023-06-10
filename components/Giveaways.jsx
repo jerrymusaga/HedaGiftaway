@@ -43,7 +43,7 @@ const Giveaway = ({ giveaway }) => {
           <p className="text-sm leading-5 text-gray-500">{giveaway.description}</p>
         </div>
         <Link
-          href={'/jackpots/' + giveaway.id}
+          href={'/giveaway/' + giveaway.id}
           className="bg-green-500 hover:bg-rose-600 py-2 px-5
                 rounded-md text-white font-semibold"
         >
