@@ -2,16 +2,19 @@ import Link from 'next/link'
 import React from 'react'
 import { FaEthereum } from 'react-icons/fa'
 
-const GiveawayTimeFrame = () => {
+const GiveawayTimeFrame = ({giveaway, luckyNumbers, participants}) => {
+    const handleRegister = async (luckyNumberID) => {
+        console.log(luckyNumberID)
+    }
   return (
     <div className='py-10 px-5 bg-slate-100'>
         <div className='flex flex-col items-center justify-center text-center py-10 '>
             <h4 className='text-4xl text-slate-700 text-center font-bold pb-3'>
                 Register For A Giveaway Contest
             </h4>
-            <p className='text-lg text-gray-600 font-semibold capitalize'>giveaway?.title</p>
-            <p className='text-sm text-gray-500 w-full sm:w-2/3'>giveaway?.description</p>
-            <p className='text-sm font-medium text-black w-full sm:w-2/3'>giveaway?.participants participants</p>
+            <p className='text-lg text-gray-600 font-semibold capitalize'>{giveaway?.title}</p>
+            <p className='text-sm text-gray-500 w-full sm:w-2/3'>{giveaway?.description}</p>
+            <p className='text-sm font-medium text-black w-full sm:w-2/3'>{giveaway?.participants} participants</p>
         </div>
         <div className='flex flex-col justify-center items-center space-y-4 mb-6'>
             {/* {giveaway?.expiresAt ? <Countdown timestamp={giveaway?.expiresAt} /> : null} */}
@@ -42,26 +45,26 @@ const GiveawayTimeFrame = () => {
             </tr>
           </thead>
           <tbody className="max-h-80 overflow-y-auto block">
-            {Array(5).fill()?.map((luckyNumber, i) => (
+            {luckyNumbers.map((luckyNumber, i) => (
               <tr className="flex justify-between border-b text-left" key={i}>
                 <td className="px-4 py-2 font-semibold">{i + 1}</td>
                 <td className="px-4 py-2 font-semibold">
                   <div className="flex justify-center items-center space-x-1">
                     <FaEthereum />
-                    <span>giveaway?.ticketPrice</span>
+                    <span>{giveaway?.fee}</span>
                   </div>
                 </td>
-                <td className="px-4 py-2 font-semibold">giveaway?.ExpiresAt</td>
-                <td className="px-4 py-2 font-semibold">luckyNumber</td>
+                <td className="px-4 py-2 font-semibold">{giveaway?.drawsAt}</td>
+                <td className="px-4 py-2 font-semibold">{luckyNumber}</td>
                 <td className="px-4 py-2 font-semibold">
                   <button
-                    // disabled={participants.includes(luckyNumber)}
-                    // onClick={() => handlePurchase(i)}
-                    // className={`bg-black ${
-                    //   participants.includes(luckyNumber)
-                    //     ? 'opacity-50 cursor-not-allowed'
-                    //     : 'hover:bg-rose-600'
-                    // } text-white text-sm py-2 px-4 rounded-full`}
+                    disabled={participants.includes(luckyNumber)}
+                    onClick={() => handleRegister(luckyNumber)}
+                    className={`bg-black ${
+                      participants.includes(luckyNumber)
+                        ? 'opacity-50 cursor-not-allowed'
+                        : 'hover:bg-rose-600'
+                    } text-white text-sm py-2 px-4 rounded-full`}
                   >
                     BUY NOW
                   </button>
