@@ -2,10 +2,11 @@ import Head from 'next/head'
 import SubHeader from '@/components/SubHeader'
 import GiveawayTimeFrame from '@/components/GiveawayTimeFrame'
 import {generateAGiveaway, generateGiveawayParticipants, getPurchasedNumbers} from "@/services/fakeData"
+import Generator from '@/components/Generator'
 
 
 const Giveaway =({giveaway, purchasedNumbers, giveawayNumbers}) => {
-    console.log({giveaway, purchasedNumbers, giveawayNumbers})
+    
   return (
     <div className="min-h-screen">
       <Head>
@@ -16,6 +17,7 @@ const Giveaway =({giveaway, purchasedNumbers, giveawayNumbers}) => {
       <div className="min-h-screen bg-slate-100">
         <SubHeader />
         <GiveawayTimeFrame giveaway={giveaway} luckyNumbers={giveawayNumbers} participants={purchasedNumbers} />
+        <Generator />
       </div>
     </div>
   )
