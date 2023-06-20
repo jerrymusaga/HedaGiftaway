@@ -2,8 +2,11 @@ import React from 'react'
 import SubHeader from '../components/SubHeader'
 import Head from 'next/head'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 const createGiveaway = () => {
+  const router = useRouter()
+
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -12,7 +15,30 @@ const createGiveaway = () => {
   const [expiresAt, setExpiresAt] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
+    if (!title || !description || !imageUrl || !prize || !fee|| !expiresAt) return
+    const params = {
+      title,
+      description,
+      imageUrl,
+      prize,
+      ticketPrice,
+      expiresAt: new Date(expiresAt).getTime(),
+    }
+    console.log(params)
+    onReset();
+    router.push("/");
+
+  }
+
+  const onReset = () => {
+    setTitle('')
+    setDescription('')
+    setImageUrl('')
+    setPrize('')
+    setFee('')
+    setExpiresAt('')
   }
   return (
     <div>
