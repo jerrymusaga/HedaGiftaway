@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { FaEthereum } from 'react-icons/fa'
+import CountDown from './CountDown'
 
 const GiveawayTimeFrame = ({giveaway, luckyNumbers, participants}) => {
     const handleRegister = async (luckyNumberID) => {
@@ -17,7 +18,7 @@ const GiveawayTimeFrame = ({giveaway, luckyNumbers, participants}) => {
             <p className='text-sm font-medium text-black w-full sm:w-2/3'>{giveaway?.participants} participants</p>
         </div>
         <div className='flex flex-col justify-center items-center space-y-4 mb-6'>
-            {/* {giveaway?.expiresAt ? <Countdown timestamp={giveaway?.expiresAt} /> : null} */}
+            {giveaway?.expiresAt ? <CountDown timestamp={giveaway?.expiresAt} /> : null}
             <div className='flex justify-center items-center space-x-2'>
                 <button className='flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500 hover:bg-rose-600 font-semibold'>
                     Generate Lucky Numbers
