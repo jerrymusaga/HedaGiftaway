@@ -4,6 +4,7 @@ import SubHeader from '@/components/SubHeader'
 import ResultFrame from '@/components/ResultFrame'
 
 import {generateAGiveaway, generateGiveawayParticipants} from '@/services/fakeData'
+import Winners from '@/components/Winners'
 
 const Results = ({giveaway,participantList, giveawayResult}) => {
    
@@ -17,6 +18,7 @@ const Results = ({giveaway,participantList, giveawayResult}) => {
     <div className="min-h-screen bg-slate-100">
       <SubHeader />
       <ResultFrame giveaway={giveaway} participants={participantList} result={giveawayResult} />
+      <Winners />
     </div>
   </div>
   )
