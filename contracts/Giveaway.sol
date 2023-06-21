@@ -196,4 +196,8 @@ contract Giveaway is Ownable {
         }
     }
 
+    function getGiveaway(uint256 id) public view returns (GiveawayData memory) {
+        return giveaways[id];
+    }
+
 }
