@@ -204,4 +204,8 @@ contract Giveaway is Ownable {
         return giveawayParticipants[id];
     }
 
+    function getGiveawayLuckyNumbers(uint256 id) public view returns (string[] memory) {
+        return giveawayLuckyNumbers[id];
+    }
+
 }
