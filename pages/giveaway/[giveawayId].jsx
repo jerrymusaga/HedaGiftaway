@@ -10,7 +10,7 @@ const Giveaway =({giveaway, purchasedNumbers, giveawayNumbers}) => {
   return (
     <div className="min-h-screen">
       <Head>
-        <title>Giftaway | Draws</title>
+        <title>HedaGiftaway | Draws</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

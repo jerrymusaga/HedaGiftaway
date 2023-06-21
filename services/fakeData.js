@@ -86,6 +86,7 @@ function generateGiveawayParticipants(count){
         };
         participants.push(participant);
     }
+    return participants
 }
 
 function generateRandomHederaAddress(){
