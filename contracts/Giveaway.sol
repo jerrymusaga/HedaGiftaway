@@ -208,4 +208,8 @@ contract Giveaway is Ownable {
         return giveawayLuckyNumbers[id];
     }
 
+    function getGiveawayResult(uint256 id) public view returns (GiveawayResultStruct memory) {
+        return giveawayResult[id];
+    }
+
 }
