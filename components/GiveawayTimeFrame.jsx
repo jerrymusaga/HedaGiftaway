@@ -41,7 +41,7 @@ const GiveawayTimeFrame = ({giveaway, luckyNumbers, participants}) => {
               <th className="px-4 py-2 ">#</th>
               <th className="px-4 py-2 ">Giveaway Ticket Fee</th>
               <th className="px-4 py-2 ">Giveaway Expiry Date</th>
-              <th className="px-4 py-2 ">Giveaway Ticket Number</th>
+              <th className="px-4 py-2 ">Giveaway Ticket Code</th>
               <th className="px-4 py-2 ">Action</th>
             </tr>
           </thead>

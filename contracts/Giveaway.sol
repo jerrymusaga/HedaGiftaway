@@ -160,7 +160,7 @@ contract Giveaway is Ownable {
 
         giveawayResult[id].completed = true;
         giveawayResult[id].timestamp = currentTime();
-        // giveaways[id].winners = giveawayResult[id].winners.length;
+        // giveaway[id].winners = giveawayResult[id].winners.length;
         giveaways[id].drawn = true;
 
         payGiveawayWinners(id);
