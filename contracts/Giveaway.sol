@@ -28,6 +28,15 @@ contract Giveaway is Ownable {
         bool paid;
     }
 
+    struct GiveawayResultStruct {
+        uint256 id;
+        bool completed;
+        bool paidout;
+        uint256 timestamp;
+        uint256 sharePerWinner;
+        ParticipantStruct[] winners;
+    }
+
     uint256 public servicePercent;
     uint256 public serviceBalance;
 
@@ -35,6 +44,7 @@ contract Giveaway is Ownable {
     mapping(uint256 => string[]) giveawayLuckyNumbers;
     mapping(uint256 => mapping(uint256 => bool)) luckyNumberUsed;
     mapping(uint256 => ParticipantStruct[]) giveawayParticipants;
+    mapping(uint256 => GiveawayResultStruct) giveawayResult;
 
     function createGiveaway(
         string memory title,
@@ -107,6 +117,54 @@ contract Giveaway is Ownable {
         serviceBalance += msg.value;
     }
 
-    
+    function randomlySelectWinners(
+        uint256 id,
+        uint256 numOfWinners
+    ) public {
+        require(
+            giveaways[id].owner == msg.sender ||
+            giveaways[id].owner == owner(),
+            "Unauthorized entity"
+        ); //any owner of the platform can randomly generate winners
+        require(!giveawayResult[id].completed, "Giveaway has already been completed");
+        require(
+            numOfWinners <= giveawayParticipants[id].length,
+            "Number of winners exceeds number of participants"
+        );
+
+        // Initialize an array to store the selected winners
+        ParticipantStruct[] memory winners = new ParticipantStruct[](numOfWinners);
+        ParticipantStruct[] memory participants = giveawayParticipants[id];
+
+        // Initialize the list of indices with the values 0, 1, ..., n-1
+        uint256[] memory indices = new uint256[](participants.length);
+        for (uint256 i = 0; i < participants.length; i++) {
+            indices[i] = i;
+        }
+
+        // Shuffle the list of indices using Fisher-Yates algorithm
+        for (uint256 i = participants.length - 1; i >= 1; i--) {
+            uint256 j = uint256(
+                keccak256(abi.encodePacked(currentTime(), i))
+            ) % (i + 1);
+            uint256 temp = indices[j];
+            indices[j] = indices[i];
+            indices[i] = temp;
+        }
+
+         // Select the winners using the first numOfWinners indices
+        for (uint256 i = 0; i < numOfWinners; i++) {
+            winners[i] = participants[indices[i]];
+            giveawayResult[id].winners.push(winners[i]);
+        }
+
+        giveawayResult[id].completed = true;
+        giveawayResult[id].timestamp = currentTime();
+        giveaways[id].drawn = true;
+
+       
+    }
+
+   
 
 }
