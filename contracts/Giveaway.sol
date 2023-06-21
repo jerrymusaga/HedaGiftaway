@@ -23,6 +23,7 @@ contract Giveaway is Ownable {
     }
 
      mapping(uint256 => GiveawayData) giveaways;
+      mapping(uint256 => string[]) giveawayLuckyNumbers;
 
      function createGiveaway(
         string memory title,
@@ -52,7 +53,7 @@ contract Giveaway is Ownable {
         giveaway.prize = prize;
         giveaway.fee = fee;
         giveaway.owner = msg.sender;
-        giveaway.createdAt = block.timestamp;
+        giveaway.createdAt = currentTime();
         giveaway.expiresAt = expiresAt;
 
         giveaways[giveaway.id] = giveaway;
@@ -61,6 +62,16 @@ contract Giveaway is Ownable {
     function currentTime() internal view returns (uint256){
         uint256 newNum = (block.timestamp * 1000) + 1000;
         return newNum;
+    }
+
+    function importLuckyNumbers(uint256 id, string[] memory luckyNumbers)
+        public
+    {
+        require(giveaways[id].owner == msg.sender, "Unauthorized entity");
+        require(giveawayLuckyNumbers[id].length < 1, "Already generated");
+        require(giveaways[id].participants < 1, "Giveaway Fees have been paid");
+        require(luckyNumbers.length > 0, "Lucky numbers cannot be zero");
+        giveawayLuckyNumbers[id] = luckyNumbers;
     }
 
 }
