@@ -188,4 +188,12 @@ contract Giveaway is Ownable {
         require(success);
     }
 
+    function getGiveaways() public view returns (GiveawayData[] memory Giveaways) {
+        Giveaways = new GiveawayData[](_totalGiveaways.current());
+
+        for (uint256 i = 1; i <= _totalGiveaways.current(); i++) {
+            Giveaways[i - 1] = giveaways[i];
+        }
+    }
+
 }
