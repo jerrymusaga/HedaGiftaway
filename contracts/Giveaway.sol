@@ -160,11 +160,32 @@ contract Giveaway is Ownable {
 
         giveawayResult[id].completed = true;
         giveawayResult[id].timestamp = currentTime();
+        // giveaways[id].winners = giveawayResult[id].winners.length;
         giveaways[id].drawn = true;
 
-       
+        payGiveawayWinners(id);
     }
 
-   
+    function payGiveawayWinners(uint256 id) internal {
+        ParticipantStruct[] memory winners = giveawayResult[id].winners;
+        uint256 totalShares = giveaways[id].fee * giveawayParticipants[id].length;
+        uint256 platformShare = (totalShares * servicePercent) / 100 ;
+        uint256 netShare = totalShares - platformShare;
+        uint256 sharesPerWinner = netShare / winners.length;
+
+        for (uint256 i = 0; i < winners.length; i++) 
+        payTo(winners[i].account, sharesPerWinner);
+
+        payTo(owner(), platformShare);
+        serviceBalance -= totalShares;
+        giveawayResult[id].id = id;
+        giveawayResult[id].paidout = true;
+        giveawayResult[id].sharePerWinner = sharesPerWinner;
+    }
+
+    function payTo(address to, uint256 amount) internal {
+        (bool success, ) = payable(to).call{value: amount}("");
+        require(success);
+    }
 
 }
