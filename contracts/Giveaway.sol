@@ -200,4 +200,8 @@ contract Giveaway is Ownable {
         return giveaways[id];
     }
 
+    function getGiveawayParticipants(uint256 id) public view returns (ParticipantStruct[] memory) {
+        return giveawayParticipants[id];
+    }
+
 }
