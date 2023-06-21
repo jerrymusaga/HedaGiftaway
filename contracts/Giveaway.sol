@@ -8,7 +8,7 @@ contract Giveaway is Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _totalGiveaways;
 
-     struct GiveawayData {
+    struct GiveawayData {
         uint256 id;
         string title;
         string description;
@@ -22,10 +22,21 @@ contract Giveaway is Ownable {
         uint256 expiresAt;
     }
 
-     mapping(uint256 => GiveawayData) giveaways;
-      mapping(uint256 => string[]) giveawayLuckyNumbers;
+    struct ParticipantStruct {
+        address account;
+        string lotteryNumber;
+        bool paid;
+    }
 
-     function createGiveaway(
+    uint256 public servicePercent;
+    uint256 public serviceBalance;
+
+    mapping(uint256 => GiveawayData) giveaways;
+    mapping(uint256 => string[]) giveawayLuckyNumbers;
+    mapping(uint256 => mapping(uint256 => bool)) luckyNumberUsed;
+    mapping(uint256 => ParticipantStruct[]) giveawayParticipants;
+
+    function createGiveaway(
         string memory title,
         string memory description,
         string memory image,
@@ -67,11 +78,35 @@ contract Giveaway is Ownable {
     function importLuckyNumbers(uint256 id, string[] memory luckyNumbers)
         public
     {
+        require(luckyNumbers.length > 0, "Lucky numbers cannot be zero");
         require(giveaways[id].owner == msg.sender, "Unauthorized entity");
         require(giveawayLuckyNumbers[id].length < 1, "Already generated");
         require(giveaways[id].participants < 1, "Giveaway Fees have been paid");
-        require(luckyNumbers.length > 0, "Lucky numbers cannot be zero");
         giveawayLuckyNumbers[id] = luckyNumbers;
     }
+
+    function buyTicket(uint256 id, uint256 luckyNumberId) public payable {
+        require(
+            !luckyNumberUsed[id][luckyNumberId],
+            "Lucky number already used"
+        );
+        require(
+            msg.value >= giveaways[id].fee,
+            "insufficient hBars to buy giveaway ticket"
+        );
+
+        giveaways[id].participants++;
+        giveawayParticipants[id].push(
+            ParticipantStruct(
+                msg.sender,
+                giveawayLuckyNumbers[id][luckyNumberId],
+                false
+            )
+        );
+        luckyNumberUsed[id][luckyNumberId] = true;
+        serviceBalance += msg.value;
+    }
+
+    
 
 }
