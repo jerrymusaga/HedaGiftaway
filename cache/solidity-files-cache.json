@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/musaga/HedaGiftaway/contracts/Giveaway.sol": {
-      "lastModificationDate": 1687317555182,
-      "contentHash": "cbfab18eddcf0d7c49048f646018a4df",
+      "lastModificationDate": 1687381681780,
+      "contentHash": "ccfbfc4c79be5cb5a5cab22cf18c7170",
       "sourceName": "contracts/Giveaway.sol",
       "solcConfig": {
         "version": "0.8.17",

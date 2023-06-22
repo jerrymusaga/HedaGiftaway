@@ -24,7 +24,7 @@ contract Giveaway is Ownable {
 
     struct ParticipantStruct {
         address account;
-        string lotteryNumber;
+        string giveawayNumber;
         bool paid;
     }
 
@@ -45,6 +45,10 @@ contract Giveaway is Ownable {
     mapping(uint256 => mapping(uint256 => bool)) luckyNumberUsed;
     mapping(uint256 => ParticipantStruct[]) giveawayParticipants;
     mapping(uint256 => GiveawayResultStruct) giveawayResult;
+
+    constructor(uint256 _servicePercent){
+        servicePercent = _servicePercent;
+    }
 
     function createGiveaway(
         string memory title,
@@ -160,7 +164,7 @@ contract Giveaway is Ownable {
 
         giveawayResult[id].completed = true;
         giveawayResult[id].timestamp = currentTime();
-        // giveaway[id].winners = giveawayResult[id].winners.length;
+        // giveaways[id].winners = giveawayResult[id].winners.length;
         giveaways[id].drawn = true;
 
         payGiveawayWinners(id);
