@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { global_actions as GlobalActions } from './actions/globalActions'
-import { global_states as GlobalStates } from './states/globalStates'
+import { globalActions as GlobalActions } from './actions/globalActions'
+import { globalStates as GlobalStates } from './states/globalStates'
 
 export const globalSlice = createSlice({
     name: 'global',
