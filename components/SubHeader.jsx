@@ -1,9 +1,12 @@
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
+import { connectWallet } from '../services/blockchain'
 
 
 const SubHeader = () => {
     const background = 'images/background.jpg'
-    
+    const {wallet} = useSelector((state) => state.globalStates)
+    console.log("wallet address" + wallet)
     return (
         <div
         style={{ background: `url('${background}') fixed no-repeat top/cover` }}
@@ -22,13 +25,25 @@ const SubHeader = () => {
             <p>Contact</p>
         </div>
 
-        <button
-        
-            className="flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500
-            hover:bg-rose-600 cursor-pointer font-semibold text-sm"
-        >
-        Connect Wallet
-        </button>
+        {
+            
+            wallet ? (
+                <button
+                    className="flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500
+                    hover:bg-rose-600 cursor-pointer font-semibold text-sm"
+                >
+                {wallet}
+                </button>
+            ) : (
+                <button
+                    onClick={connectWallet}
+                    className="flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500
+                    hover:bg-rose-600 cursor-pointer font-semibold text-sm"
+                >
+                Connect Wallet
+                </button>
+            )
+        }
       
         </div>
     )

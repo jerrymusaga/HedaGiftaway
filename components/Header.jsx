@@ -1,11 +1,17 @@
-import React from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
 
-const background = 'images/background.jpg'
+
+import Image from 'next/image'
+import { useSelector } from 'react-redux'
+import { connectWallet } from '@/services/blockchain'
+import Link from 'next/link'
+
+const background = '/images/background.jpg'
 const network = '/images/network.webp'
 
+
 const Header = () => {
+    const {wallet} = useSelector((states) => states.globalStates)
+    console.log("wallet address" + wallet)
   return (
     <div
         className='px-5 md:px-40'
@@ -21,9 +27,24 @@ const Header = () => {
                 <p>All Giveaways</p>
                 <p>Contact</p>
             </div>
-            <button
-                className='flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500 hover:bg-rose-600 cursor-pointer font-semibold text-sm'
-            >Connect Wallet</button>
+            {
+                wallet ? (
+                    <button
+                        className="flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500
+                        hover:bg-rose-600 cursor-pointer font-semibold text-sm"
+                    >
+                    {wallet}
+                    </button>
+                ) : (
+                    <button
+                        onClick={connectWallet}
+                        className="flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500
+                        hover:bg-rose-600 cursor-pointer font-semibold text-sm"
+                    >
+                    Connect Wallet
+                    </button>
+                )
+            }
         </div>
         <div>
             <div className='flex items-center justify-between pb-5'>
@@ -59,5 +80,6 @@ const Header = () => {
     </div>
   )
 }
+
 
 export default Header;

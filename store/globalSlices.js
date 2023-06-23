@@ -5,7 +5,7 @@ import { globalStates as GlobalStates } from './states/globalStates'
 export const globalSlice = createSlice({
     name: 'global',
     initialState: GlobalStates,
-    reducers: GlobalActions
+    reducers: GlobalActions,
 })
 
 export const globalActions = globalSlice.actions
