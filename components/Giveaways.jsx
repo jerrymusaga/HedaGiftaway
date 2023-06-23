@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { truncate } from '@/services/blockchain'
 
 const Giveaways = ({giveaways}) => {
   return (
@@ -40,7 +41,7 @@ const Giveaway = ({ giveaway }) => {
         </div>
         <div className="py-5">
           <p className="font-semibold pb-2 text-green-300">{giveaway.title}</p>
-          <p className="text-sm leading-5 text-gray-500">{giveaway.description}</p>
+          <p className="text-sm leading-5 text-gray-500">{truncate(giveaway.description, 100,0,110)}</p>
         </div>
         <Link
           href={'/giveaway/' + giveaway.id}

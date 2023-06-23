@@ -5,8 +5,8 @@ import {generateGiveaways} from '@/services/fakeData'
 import {getGiveaways} from '@/services/blockchain'
 
 
-export default function Home({giveaways, giveaways2}) {
-  console.log(giveaways2)
+export default function Home({giveaways}) {
+  
   return (
     <div className=''>
       <Head>
@@ -23,12 +23,10 @@ export default function Home({giveaways, giveaways2}) {
 }
 
 export const getServerSideProps = async () => {
-  const data = generateGiveaways(15);
-  const data2 = await getGiveaways();
+  const data = await getGiveaways();
   return {
     props: {
       giveaways: JSON.parse(JSON.stringify(data)),
-      giveaways2: JSON.parse(JSON.stringify(data2))
     }
   }
 }
