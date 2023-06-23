@@ -72,6 +72,21 @@ const isWallectConnected = async () => {
   }
 }
 
+const getEthContract = async () => {
+  const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545/')
+  const wallet = new ethers.Wallet.createRandom()
+  const signer = provider.getSigner(wallet.address)
+  const contract = new ethers.Contract(contractAddress, contractAbi, signer)
+  return contract
+}
 
-export {connectWallet, truncate, isWallectConnected}
+
+const getGiveaways = async () => {
+  const contract = await getEthContract()
+  const giveaways = await contract.getGiveaways()
+  return giveaways;
+}
+
+
+export {connectWallet, truncate, isWallectConnected, getGiveaways}
   
