@@ -46,6 +46,32 @@ const truncate = (text, startChars, endChars, maxLength) => {
   return text
 }
 
+const isWallectConnected = async () => {
+  try {
+    if (!ethereum) return reportError('Please install Metamask')
+    const accounts = await ethereum.request({ method: 'eth_accounts' })
 
-export {connectWallet, truncate}
+    window.ethereum.on('chainChanged', (chainId) => {
+      window.location.reload()
+    })
+
+    window.ethereum.on('accountsChanged', async () => {
+      store.dispatch(setWallet(accounts[0]))
+      await isWallectConnected()
+    })
+
+    if (accounts.length) {
+      store.dispatch(setWallet(accounts[0]))
+    } else {
+      store.dispatch(setWallet(''))
+      reportError('Please connect wallet.')
+      console.log('No accounts found.')
+    }
+  } catch (error) {
+    reportError(error)
+  }
+}
+
+
+export {connectWallet, truncate, isWallectConnected}
   
