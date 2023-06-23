@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
-import { connectWallet } from '@/services/blockchain'
+import { connectWallet, truncate } from '@/services/blockchain'
 import Link from 'next/link'
 
 const background = '/images/background.jpg'
@@ -33,7 +33,7 @@ const Header = () => {
                         className="flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500
                         hover:bg-rose-600 cursor-pointer font-semibold text-sm"
                     >
-                    {wallet}
+                    {truncate(wallet,4,4,11)}
                     </button>
                 ) : (
                     <button
