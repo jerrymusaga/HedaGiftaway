@@ -2,9 +2,15 @@ import Link from 'next/link'
 import Identicon from 'react-identicons'
 import { FaEthereum } from 'react-icons/fa'
 import CountDown from '@/components/CountDown'
+import {truncate} from '@/services/blockchain'
+import { useSelector, useDispatch } from 'react-redux'
+import {globalActions} from '@/store/globalSlices'
 
 
 const ResultFrame = ({ giveaway, participants, result }) => {
+
+  const {setWinnersModal} = globalActions
+  const dispatch = useDispatch()
     
   return (
     <div className="mx-auto py-16 bg-slate-100 space-y-2">
@@ -28,15 +34,16 @@ const ResultFrame = ({ giveaway, participants, result }) => {
         <div className="flex justify-center items-center space-x-2">
           
             <button
-              disabled={giveaway?.expiresAt > Date.now()}
+              onClick={() => dispatch(setWinnersModal(('scale-100')))}
+              // disabled={giveaway?.expiresAt > Date.now()}
               
-              className={`flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500
-            hover:bg-rose-600 font-semibold
-              ${
-                giveaway?.expiresAt > Date.now()
-                  ? 'opacity-50 cursor-not-allowed'
-                  : 'hover:bg-rose-600'
-              }`}
+            //   className={`flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500
+            // hover:bg-rose-600 font-semibold
+            //   ${
+            //     giveaway?.expiresAt > Date.now()
+            //       ? 'opacity-50 cursor-not-allowed'
+            //       : 'hover:bg-rose-600'
+            //   }`}
             >
               Perform Draw
             </button>

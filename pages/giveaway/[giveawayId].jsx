@@ -3,7 +3,7 @@ import SubHeader from '@/components/SubHeader'
 import GiveawayTimeFrame from '@/components/GiveawayTimeFrame'
 import {generateAGiveaway, generateGiveawayParticipants, getPurchasedNumbers} from "@/services/fakeData"
 import Generator from '@/components/Generator'
-
+import {getGiveaway} from "@/services/blockchain"
 
 const Giveaway =({giveaway, purchasedNumbers, giveawayNumbers}) => {
     
@@ -25,7 +25,7 @@ const Giveaway =({giveaway, purchasedNumbers, giveawayNumbers}) => {
 
 export const getServerSideProps = async (context) => {
     const { giveawayId } = context.query
-    const giveaway = await generateAGiveaway(giveawayId)
+    const giveaway = await getGiveaway(giveawayId)
     const purchasedNumbers = await getPurchasedNumbers(giveawayId)
     const giveawayNumbers = await getPurchasedNumbers(giveawayId)
   

@@ -2,7 +2,7 @@ import { AppProps } from 'next/app'
 import '@/styles/global.css'
 import { useState, useEffect } from 'react'
 import { Provider } from 'react-redux'
-import {store} from '@/store'
+import {store} from '@/store/index'
 import { isWallectConnected } from '@/services/blockchain'
 
 export default function MyApp({ Component, pageProps }: AppProps) {

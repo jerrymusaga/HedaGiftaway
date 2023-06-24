@@ -1,21 +1,25 @@
 import { useState } from 'react';
 import { FaTimes } from 'react-icons/fa'
 import {getPurchasedNumbers} from '@/services/fakeData'
+import { useSelector, useDispatch } from 'react-redux'
+import {globalActions} from '@/store/globalSlices'
 
 const Generator = () => {
     const [luckyNumbers, setLuckyNumbers] = useState('');
     const [close, setClose] = useState('scale-100');
+    const {generatorModal} = useSelector((states) => states.globalStates) 
+    const {setGeneratorModal} = globalActions
+    const dispatch = useDispatch()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(getPurchasedNumbers(luckyNumbers))
-        setClose('scale-0')
+        dispatch(setGeneratorModal('scale-0'))
     }
   return (
     <div
     className={`fixed top-0 left-0 w-screen h-screen flex
     items-center justify-center bg-black bg-opacity-50
-    transform transition-transform duration-300 ${close}`}
+    transform transition-transform duration-300 ${generatorModal}`}
   >
     <div
       className="bg-white shadow-xl shadow-[#0c2856] rounded-xl
@@ -25,7 +29,7 @@ const Generator = () => {
         <div className="flex justify-between items-center">
           <p className="font-semibold">Generate Numbers</p>
           <button
-            onClick={() => setClose('scale-0')}
+            onClick={()=>dispatch(setGeneratorModal('scale-0'))}
             type="button"
             className="border-0 bg-transparent focus:outline-none"
           >

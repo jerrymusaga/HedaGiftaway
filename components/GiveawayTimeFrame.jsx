@@ -2,8 +2,12 @@ import Link from 'next/link'
 import React from 'react'
 import { FaEthereum } from 'react-icons/fa'
 import CountDown from './CountDown'
+import { useSelector, useDispatch } from 'react-redux'
+import {globalActions} from '@/store/globalSlices'
 
 const GiveawayTimeFrame = ({giveaway, luckyNumbers, participants}) => {
+    const {setGeneratorModal} = globalActions
+    const dispatch = useDispatch()
     const handleRegister = async (luckyNumberID) => {
         console.log(luckyNumberID)
     }
@@ -20,7 +24,7 @@ const GiveawayTimeFrame = ({giveaway, luckyNumbers, participants}) => {
         <div className='flex flex-col justify-center items-center space-y-4 mb-6'>
             {giveaway?.expiresAt ? <CountDown timestamp={giveaway?.expiresAt} /> : null}
             <div className='flex justify-center items-center space-x-2'>
-                <button className='flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500 hover:bg-rose-600 font-semibold'>
+                <button onClick={()=>dispatch(setGeneratorModal('scale-100'))} className='flex flex-nowrap border py-2 px-4 rounded-full bg-amber-500 hover:bg-rose-600 font-semibold'>
                     Generate Lucky Numbers
                 </button>
             </div>

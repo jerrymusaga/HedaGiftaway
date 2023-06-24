@@ -11,7 +11,7 @@ const contractAbi = abi.abi;
 let tx, ethereum
 
 if (typeof window !== 'undefined') {
-    ethereum = window.ethereum
+  ethereum = window.ethereum
 }
 
 const toWei = (num) => ethers.utils.parseEther(num.toString())
@@ -87,6 +87,12 @@ const getGiveaways = async () => {
   return structureGiveaways(giveaways);
 }
 
+const getGiveaway = async (id) => {
+  const contract = await getEthContract()
+  const giveaway = await contract.getGiveaway(id)
+  return structureGiveaways([giveaway])[0];
+}
+
 
 
 const structureGiveaways = (giveaways) =>
@@ -131,5 +137,5 @@ function formatDate(timestamp) {
   return `${dayOfWeek} ${monthOfYear} ${dayOfMonth}, ${year}`
 }
 
-export {connectWallet, truncate, isWallectConnected, getGiveaways}
+export {connectWallet, truncate, isWallectConnected, getGiveaways, getGiveaway}
   
